@@ -31,6 +31,16 @@ public class bit {
         for (char ch : str.toCharArray())
             base ^= ch;
         char uniq = (char) base;
+
+
+        int m1 = -1024;
+        String sh1 = Integer.toBinaryString(m1);
+        int m2 = m1 >> 8;
+        String sh2 = Integer.toBinaryString(m2);
+        int m3 = m1 >>> 8;
+        String sh3 = Integer.toBinaryString(m3);
+
+
         return;
     }
 }

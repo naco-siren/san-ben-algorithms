@@ -1,8 +1,6 @@
 package java_lang;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * Created by naco_siren on 8/2/17.
@@ -26,6 +24,16 @@ public class map {
         map.put(null, null);
         Hashtable<Integer, Integer> hashtable = new Hashtable<>();
         //hashtable.put(5, null);
+
+
+        /* LinkedHashMap */
+        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put(1, "One");
+        linkedHashMap.put(2, "Two");
+        linkedHashMap.put(3, "Three");
+
+        Set<Map.Entry<Integer, String>> entrySet = linkedHashMap.entrySet();
+
 
         return;
     }
