@@ -31,7 +31,7 @@ public class LC_25 {
         if (head == null) return head;
 
         ListNode sentinel = new ListNode(0); sentinel.next = head;
-        ListNode captain = sentinel, anchor;
+        ListNode captain = sentinel;
 
         while (true) {
             /* Check if a group exists */
@@ -43,7 +43,7 @@ public class LC_25 {
             }
 
             /* Perform reversing */
-            anchor = captain.next;
+            ListNode anchor = captain.next;
             for (int i = 0; i < k - 1; i++) {
                 ListNode next = anchor.next;
                 anchor.next = next.next;
