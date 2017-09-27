@@ -1,8 +1,5 @@
 package java_lang;
 
-import base.ListNode;
-import leetcode.LC_82;
-
 import java.util.*;
 
 /**
