@@ -31,13 +31,12 @@ public class Solution {
             i++;
         }
 
-        int absVal = 0;
+        long absVal = 0;
         while (i < len) {
             int digit = charToInt(chars[i]);
             if (digit == -1) {
                 return returnResult(absVal, isNeg);
-            }
-            else {
+            } else {
                 absVal *= 10;
                 absVal += digit;
             }
@@ -53,7 +52,7 @@ public class Solution {
             return -1;
     }
 
-    private int returnResult(int absVal, boolean isNeg) {
+    private int returnResult(long absVal, boolean isNeg) {
         absVal = isNeg ? -absVal : absVal;
         if (absVal > Integer.MAX_VALUE)
             return Integer.MAX_VALUE;

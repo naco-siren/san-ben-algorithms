@@ -28,11 +28,12 @@ public class Solution{
 
                 } else {
                     // Two situations:
-                    // (1) s[:i] matches p[:j-2], and there is 0 preceding element of '*';
-                    // (2) The last character of s should match the preceding element of '*';
-                    //     And, dp[i-1][j] should be true;
-                    dp[i][j] = (j > 1 && dp[i][j-2]) ||
-                            (i > 0 && dp[i-1][j] && (p.charAt(j-2) == s.charAt(i-1) || p.charAt(j-2) == '.'));
+                    // (1) s[:i] matches p[:j-2], and there is zero preceding elements of '*', i.e. p[j-1] is omitted by '*';
+                    // (2) s[:i-1] matches p[:j], and s[i] matches the preceding element of '*'.
+                    dp[i][j] =
+                            (j > 1 && dp[i][j-2]) ||
+                            (i > 0 && dp[i-1][j] &&
+                                    (p.charAt(j-2) == s.charAt(i-1) || p.charAt(j-2) == '.'));
                 }
             }
         }

@@ -27,7 +27,7 @@ public class Solution {
         while (head != null) {
             if (head.val != lastVal && (head.next == null || head.val != head.next.val)) {
                 tail.next = head;
-                tail = head;
+                tail = tail.next;
             }
             lastVal = head.val;
             head = head.next;

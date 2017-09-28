@@ -1,28 +1,39 @@
 package leetcode.LC_085;
 
+import java.util.Arrays;
+
 /**
  * Created by naco_siren on 7/18/17.
  */
 public class Solution {
     public static void main(String[] args) {
 
+        int r1 = maximalRectangle(new char[][]{
+                new char[]{'1','0','1','0','0'},
+                new char[]{'1','0','1','1','1'},
+                new char[]{'1','1','1','1','1'},
+                new char[]{'1','0','0','1','0'},
+        });
 
         return;
     }
 
-    public int maximalRectangle(char[][] matrix) {
-        if (matrix == null) return 0; int m = matrix.length;
-        if (m == 0 || matrix[0] == null) return 0; int n = matrix[0].length;
+    public static int maximalRectangle(char[][] matrix) {
+        if (matrix == null) return 0; int R = matrix.length;
+        if (R == 0 || matrix[0] == null) return 0; int C = matrix[0].length;
 
+        /* Initialize DP */
         int maxArea = 0;
-        int[] left = new int[n], right = new int[n], height = new int[n];
-        for (int i = 0; i < n; i++)
-            right[i] = Integer.MAX_VALUE;
+        int[] left = new int[C], right = new int[C], height = new int[C];
 
-        for (int i = 0; i < m; i++) {
+        /* Remember to initialize rights with some really large numbers */
+        Arrays.fill(right, C);
+
+        /* DP */
+        for (int i = 0; i < R; i++) {
             /* Max index on the Left */
             int maxLeft = 0;
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < C; j++) {
                 if (matrix[i][j] == '1') {
                     if (maxLeft > left[j])
                         left[j] = maxLeft;
@@ -38,8 +49,8 @@ public class Solution {
             }
 
             /* Min index on the Right */
-            int minRight = n-1;
-            for (int j = n-1; j >= 0; j--) {
+            int minRight = C - 1;
+            for (int j = C - 1; j >= 0; j--) {
                 if (matrix[i][j] == '1') {
                     if (minRight < right[j])
                         right[j] = minRight;
@@ -49,7 +60,7 @@ public class Solution {
                         maxArea = newArea;
 
                 } else {
-                    right[j] = n;
+                    right[j] = C;
                     minRight = j - 1;
                 }
             }

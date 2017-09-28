@@ -21,19 +21,22 @@ public class Solution {
         return results;
     }
 
-    private static void recur(int n, int k, int start, ArrayList<Integer> prefix, ArrayList<List<Integer>> results) {
-        if (n - start + 1 < k)
+    private static void recur(int n, int k, int index, ArrayList<Integer> prefix, ArrayList<List<Integer>> results) {
+        /* Prune if the remaining elements are not enough to fill the vacancy */
+        if (n - index + 1 < k)
             return;
 
+        /* Add to results if already k elements */
         if (k == 0) {
             results.add((ArrayList<Integer>) prefix.clone());
             return;
         }
 
-        prefix.add(start);
-        recur(n, k-1, start+1, prefix, results);
-        prefix.remove(prefix.size() - 1);
-        recur(n, k, start+1, prefix, results);
+        /* Recursion and back-tracking */
+        prefix.add(index);
+        recur(n, k - 1, index + 1, prefix, results); // Use current element
+        prefix.remove(prefix.size() - 1); // Backtrack to remove it
+        recur(n, k, index + 1, prefix, results); // Do not use current element
 
     }
 }

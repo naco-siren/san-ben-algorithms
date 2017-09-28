@@ -10,9 +10,58 @@ public class Solution {
         return;
     }
 
+    /**
+     * A dynamic programming solution
+     */
     public static boolean isScramble(String s1, String s2) {
-        if (s1.equals(s2))
-            return true;
+        int L = s1.length();
+        if (L == 0) return true;
+        if (L == 1) return s1.charAt(0) == s2.charAt(0);
+
+        /* Initialize DP */
+        boolean[][][] dp = new boolean[L][][];
+        for (int i = 0; i < L; i++) {
+            dp[i] = new boolean[L][];
+            for (int j = 0; j < L; j++) {
+                dp[i][j] = new boolean[L];
+
+                /* dp[i][j][0] : substring with length of 1, i.e. only the character itself */
+                dp[i][j][0] = s1.charAt(i) == s2.charAt(j);
+            }
+        }
+
+        /* Check the substring from shortest (2) to longest (L);
+           Use "l" to indicate the length of it */
+        for (int l = 2; l <= L; l++) {
+
+            /* "i" : s1's substring start index */
+            for (int i = 0; i + l - 1 < L; i++) {
+
+                /* "j" : s2's substring start index */
+                for (int j = 0; j + l - 1 < L; j++) {
+
+                    /* "k" : grow from 1 to "l";
+                       consider marginal effect at each step */
+                    for (int k = 1; k < l; k++) {
+                        /* not swap */
+                        if (dp[i][j][k-1] && dp[i+k][j+k][l-k-1]) dp[i][j][l-1] = true;
+
+                        /* swap */
+                        if (dp[i][j+l-k][k-1] && dp[i+k][j][l-k-1]) dp[i][j][l-1] = true;
+                    }
+                }
+            }
+        }
+
+        /* Compare the s1 and s2's substrings that both start at 0 with length L */
+        return dp[0][0][L-1];
+    }
+
+    /**
+     * A recursive solution
+     */
+    public static boolean isScramble2(String s1, String s2) {
+        if (s1.equals(s2)) return true;
         int len = s1.length();
 
         /* Check if two strings contain different characters */

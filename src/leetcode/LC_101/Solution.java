@@ -9,26 +9,36 @@ import java.util.Stack;
  */
 public class Solution {
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        root1.right = new TreeNode(3);
+        boolean r1 = isSymmetric(root1); // [False]
 
-        Solution solution = new Solution();
-        solution.isSymmetric(root);
+
+        TreeNode root2 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        root1.right = new TreeNode(2);
+        root1.left.left = new TreeNode(4);
+        root1.right.right = new TreeNode(4);
+        boolean r2 = isSymmetric(root2); // [True]
 
         return;
     }
 
 
-    public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
-        Stack<Pair> stack = new Stack<>();
-        stack.push(pair(root.left, root.right));
 
-        while (stack.isEmpty() == false) {
-            Pair pair = stack.pop();
-            TreeNode left = pair.left;
-            TreeNode right = pair.right;
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null) return true;
+
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+
+        stack1.push(root.left);
+        stack2.push(root.right);
+
+        while (!stack1.isEmpty()) {
+            TreeNode left = stack1.pop();
+            TreeNode right = stack2.pop();
 
             if (left == null && right == null)
                 continue;
@@ -37,23 +47,16 @@ public class Solution {
             if (left.val != right.val)
                 return false;
             else {
-                stack.push(pair(left.left, right.right));
-                stack.push(pair(left.right, right.left));
+                stack1.push(left.left);
+                stack2.push(right.right);
+
+                stack1.push(left.right);
+                stack2.push(right.left);
             }
         }
         return true;
     }
 
-    private Pair pair (TreeNode left, TreeNode right) {
-        return new Pair(left, right);
-    }
 
-    class Pair {
-        public TreeNode left;
-        public TreeNode right;
-        public Pair(TreeNode left, TreeNode right) {
-            this.left = left;
-            this.right = right;
-        }
-    }
+
 }

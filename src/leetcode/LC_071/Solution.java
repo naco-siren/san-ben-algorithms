@@ -15,6 +15,7 @@ public class Solution {
     public static String simplifyPath(String path) {
         Stack<String> stack = new Stack<>();
 
+        /* Use stack to simplify the path */
         String[] dirs = path.split("/");
         for (String dir : dirs) {
             if (dir.length() == 0) {
@@ -29,13 +30,13 @@ public class Solution {
             }
         }
 
+        /* Output path into a String */
         if (stack.isEmpty() == true) {
             return "/";
         } else {
             String result = "";
-            while (stack.isEmpty() == false) {
+            while (stack.isEmpty() == false)
                 result = "/" + stack.pop() + result;
-            }
             return result;
         }
     }

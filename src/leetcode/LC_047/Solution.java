@@ -38,7 +38,7 @@ public class Solution {
         for (n = perm.size() - 2; n >= 0 && perm.get(n) >= perm.get(n+1); n--);
         if (n < 0) return false;
 
-        /* m: n -> R, first [m] <= [n] */
+        /* m: n -> R, last [m] > [n] */
         for (m = n + 1; m < perm.size() && perm.get(m) > perm.get(n); m++);
         m--;
 

@@ -23,8 +23,8 @@ public class Solution {
         for (int k = 0; k < nums.length;) {
             int nr = results.size();
             int val = nums[k];
-            for (int base = 0; k < nums.length && nums[k] == val; k++, base += nr) {
-                for (int j = base; j < base + nr; j++) {
+            for (int start = 0; k < nums.length && nums[k] == val; k++, start += nr) {
+                for (int j = start; j < start + nr; j++) {
                     ArrayList<Integer> result = (ArrayList<Integer>) results.get(j);
                     ArrayList<Integer> newResult = (ArrayList<Integer>) result.clone();
                     newResult.add(val);
