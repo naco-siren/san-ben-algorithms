@@ -19,13 +19,16 @@ public class Solution {
     }
 
     private static TreeNode build(int[] nums, int left, int right) {
-        if (left == right)
-            return null;
+        /* Return NULL if length is zero */
+        if (left == right) return null;
 
+        /* Find the root element */
         int mid = (left + right) / 2;
+
+        /* Recursion */
         TreeNode node = new TreeNode(nums[mid]);
         node.left = build(nums, left, mid);
-        node.left = build(nums, mid+1, right);
+        node.left = build(nums, mid + 1, right);
         return node;
     }
 }

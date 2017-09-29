@@ -1,4 +1,4 @@
-package leetcode.LC_331;
+package leetcode.LC_301;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Solution {
     }
 
     public static List<String> removeInvalidParentheses(String s) {
+        /* Find the maximal quantity of left and right brackets to remove */
         int rmL = 0, rmR = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {

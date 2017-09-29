@@ -10,7 +10,7 @@ import java.util.List;
 public class Solution {
     public static void main(String[] args) {
 
-        Solution s1 = new Solution("aab");
+        Solution s1 = new Solution("aabcbx");
         s1.partition();
 
         return;
@@ -27,15 +27,15 @@ public class Solution {
     }
 
     public List<List<String>> partition() {
+        /* Initialization of DP */
         this.isp = new boolean[len][];
         for (int i = 0; i < len; i++) isp[i] = new boolean[len];
 
-        for (int c = 0; c < len * 2 - 1; c++) {
-            int l = c/2, r = (c+1)/2;
-            for (; l >= 0 && r <= len - 1 && str.charAt(l) == str.charAt(r); l--, r++)
+        for (int c = 0; c < len * 2 - 1; c++)
+            for (int l = c/2, r = (c+1)/2; l >= 0 && r <= len - 1 && str.charAt(l) == str.charAt(r); l--, r++)
                 isp[l][r] = true;
-        }
 
+        /* Start recursion */
         results = new ArrayList<>();
         LinkedList<String> prefix = new LinkedList<>();
         recur(0, prefix);
@@ -44,20 +44,20 @@ public class Solution {
     }
 
     private void recur(int l, LinkedList<String> prefix) {
+        /* On reaching end, stop to collect the result and backtrack */
         if (l == len) {
             results.add(new LinkedList<String>(prefix));
             return;
         }
 
         /* Recursion and backtracking */
-        prefix.add("");
         for (int r = l; r < len; r++) {
-            if (isp[l][r] == false) continue;
+            if (isp[l][r] == false)
+                continue;
 
-            prefix.removeLast();
             prefix.add(str.substring(l, r+1));
             recur(r + 1, prefix);
+            prefix.removeLast();
         }
-        prefix.removeLast();
     }
 }

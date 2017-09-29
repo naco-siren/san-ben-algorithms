@@ -14,7 +14,7 @@ public class list {
         for (Integer integer : list) {
             int x = integer;
         }
-
+        list.removeLast();
 
         Collections.fill(list, 7);
         
