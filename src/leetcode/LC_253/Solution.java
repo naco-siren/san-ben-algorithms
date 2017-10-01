@@ -17,9 +17,8 @@ public class Solution {
         Interval i4 = new Interval(3, 5);
         Interval[] input = new Interval[]{i1, i2, i3, i4};
 
-        Solution lc = new Solution();
-        int output1 = lc.minMeetingRooms1(input);
-        int output2 = lc.minMeetingRooms2(input);
+        int output1 = minMeetingRooms1(input);
+        int output2 = minMeetingRooms2(input);
 
 
         return;
@@ -49,7 +48,7 @@ public class Solution {
     }
 
 
-    public int minMeetingRooms2(Interval[] intervals) {
+    public static int minMeetingRooms2(Interval[] intervals) {
         if(intervals == null || intervals.length == 0) return 0;
 
         /* Sort the times into an array with labels */
