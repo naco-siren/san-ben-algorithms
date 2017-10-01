@@ -94,9 +94,10 @@ public class FollowUp {
         /* Assign the number of rooms to each interval */
         LinkedList<int[]> list = new LinkedList<>();
 
-        Integer lastPoint = points.get(0).val;
-        int lastRooms = 1;
-        for (int i = 1; i < points.size();) {
+        Integer lastPoint = null;
+        int lastRooms = 0;
+
+        for (int i = 0; i < points.size();) {
             /* Initialize status */
             int curRooms = lastRooms;
 
@@ -107,9 +108,10 @@ public class FollowUp {
             }
             curRooms = points.get(i).isStart ? curRooms + 1 : curRooms - 1;
 
-
             /* Check if a new interval is needed */
-            if (points.get(i).val > lastPoint)
+            if (lastPoint == null)
+                lastPoint = points.get(i).val;
+            else if (points.get(i).val > lastPoint)
                 list.add(new int[]{lastPoint, points.get(i).val, lastRooms});
 
             /* Update status */
