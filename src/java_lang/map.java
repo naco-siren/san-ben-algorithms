@@ -35,6 +35,19 @@ public class map {
         Set<Map.Entry<Integer, String>> entrySet = linkedHashMap.entrySet();
 
 
+        /* Map of collections */
+        LinkedList<Integer> l1 = new LinkedList<>();
+        l1.add(1); l1.add(2); l1.add(3);
+
+        LinkedList<Integer> l2 = new LinkedList<>();
+        l2.add(1); l2.add(2); l2.add(3);
+
+        HashMap<LinkedList<Integer>, Integer> map1 = new HashMap<>();
+        map1.put(l1, 111);
+        Integer i1 = map1.get(l2);
+
+        map1.put(l2, 22);
+
         return;
     }
 }
