@@ -1,20 +1,20 @@
-# LeetCode Problems
+# 三本算法
 
-My practice repo for LeetCode and other coding challenges.
+My practice repo for [LeetCode](https://leetcode.com), [LintCode](https://www.lintcode.com), [HackeRrank](https://www.hackerrank.com) and other companies' meaningless interview questions.
 
 
-Repo structure:
+## Repo structure:
 
-/algorithm: Basic algorithms, such as sorting.
+`/algorithm`: Basic algorithms, such as sorting.
 
-/base: Basic classes that will be used across different questions, such as TreeNode, ListNode.
+`/java_lang`: A playground for Java's language features.
 
-/hackerrank: HackerRank questions.
+`/base`: Basic classes that will be used across different questions, such as TreeNode, ListNode.
 
-/java_lang: A playground for Java's language features.
+`/leetcode`: LeetCode questions.
 
-/leetcode: LeetCode questions.
+`/lintcode`: LintCode questions.
 
-/lintcode: LintCode questions.
+`/hackerrank`: HackerRank questions
 
-Main.java
+`/companies`: Successful companies. 
