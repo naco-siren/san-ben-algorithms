@@ -1,9 +1,6 @@
-package java_lang;
+package algorithm.quick_sort;
 
-/**
- * Created by naco_siren on 8/23/17.
- */
-public class sort {
+public class QuickSort {
     public static void main(String[] args) {
 
         int[] arr1 = new int[]{1, 4, 2, 8, 5 ,7};
