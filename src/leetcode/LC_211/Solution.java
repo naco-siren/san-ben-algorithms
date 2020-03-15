@@ -14,9 +14,9 @@ public class Solution {
         wordDictionary.addWord("bar");
 
         boolean b1 = wordDictionary.search("pattern");
-        boolean b2 =wordDictionary.search("foo");
-        boolean b3 =wordDictionary.search("f.o");
-        boolean b4 =wordDictionary.search("fo.");
+        boolean b2 = wordDictionary.search("foo");
+        boolean b3 = wordDictionary.search("f.o");
+        boolean b4 = wordDictionary.search("fo.");
 
         return;
     }

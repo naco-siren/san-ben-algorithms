@@ -7,12 +7,12 @@ import java.util.Stack;
  */
 public class WordDictionary {
 
-    TrieNode root = new TrieNode();
+    private TrieNode root = new TrieNode();
 
     /**
      * Adds a word into the data structure.
      */
-    public void addWord(String word) {
+    void addWord(String word) {
         TrieNode cur = root;
 
         /* Drill down the tree along each character's leaf */
@@ -34,7 +34,7 @@ public class WordDictionary {
         Stack<Pair> stack = new Stack<>();
         stack.push(new Pair(root, 0));
 
-        while(stack.isEmpty() == false){
+        while (!stack.isEmpty()) {
             /* Pop the next candidate from stack */
             Pair pair = stack.pop();
             TrieNode node = pair.node;
@@ -44,10 +44,11 @@ public class WordDictionary {
                return true if current node is word,
                or continue to pop next candidate from stack */
             if (depth == word.length()) {
-                if(node.isWord == true)
+                if (node.isWord) {
                     return true;
-                else
+                } else {
                     continue; // Continue to next candidate in stack
+                }
             }
 
             /* Push all possible candidates into stack */
@@ -75,7 +76,7 @@ public class WordDictionary {
         boolean isWord = false;
         TrieNode[] children = new TrieNode[26];  // Assume all the characters are lower cased
 
-        public TrieNode(){
+        TrieNode(){
         }
     }
 
@@ -86,7 +87,7 @@ public class WordDictionary {
         TrieNode node;
         int depth;
 
-        public Pair(TrieNode node, int depth){
+        Pair(TrieNode node, int depth){
             this.node = node;
             this.depth = depth;
         }
