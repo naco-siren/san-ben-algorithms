@@ -1,50 +1,49 @@
 package leetcode.LC_076;
 
 /**
+ * 76. Minimum Window Substring
+ *
+ * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+ *
+ * If there is no such window in S that covers all characters in T, return the empty string "".
+ * If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+ *
  * Created by naco_siren on 7/15/17.
  */
 public class Solution {
-    public static void main(String... args) {
+    public static String minWindow(String s, String t) {
+        if (s == null || s.length() == 0 || t == null || t.length() == 0) return "";
+        int m = s.length(), n = t.length();
 
-        String r1 = minWindow("a", "a");
-        String r2 = minWindow("ADOBECODEBANC", "ABC");
-
-        return;
-    }
-
-    public static String minWindow(String s, String p) {
-        if (s == null || s.length() == 0 || p == null || p.length() == 0) return "";
-        int m = s.length(), n = p.length();
-
-        /* Initialize a histogram for each character's demand */
+        // Initialize a histogram for each character's demand
         int[] hist = new int[256];
         for (int i = 0; i < n; i++)
-            hist[p.charAt(i)]++;
-        int count = n; // The total characters' demand we need to meet
+            hist[t.charAt(i)]++;
+        int remains = n; // The total characters' demand we need to meet
 
-        /* Sliding window */
+        // Sliding window
         int minStart = -1, minLen = Integer.MAX_VALUE;
-        for (int start = 0, end = 0; end < m; end++) {
-            /* Reduce the new character's demand by one */
-            if (--hist[s.charAt(end)] >= 0) // If this demand drops below zero, it means that we over supply
-                count--;
+        for (int l = 0, r = 0; r < m; r++) {
+            // Reduce the new character's demand by one
+            if (--hist[s.charAt(r)] >= 0) // If this demand drops below zero, it means that we over supply
+                remains--;
 
-            /* Continue expanding the window if total demand not met */
-            if (count > 0) continue;
+            // Continue expanding the window if total demand not met
+            if (remains > 0) continue;
 
-            /* If total demand is met, shrink the window */
-            while (count == 0) {
-                if (++hist[s.charAt(start)] > 0)
-                    count++;
-                start++;
+            // If total demand is met, shrink the window
+            while (remains == 0) {
+                if (++hist[s.charAt(l)] > 0)
+                    remains++;
+                l++;
             }
 
             /* By now, the count should be 1 */
 
-            /* Update minimum length record */
-            if (end - start + 2 < minLen) {
-                minLen = end - start + 2; // Because we over shrink the start by 1
-                minStart = start - 1; // Because we over shrink the start by 1
+            // Update minimum length record
+            if (r - l + 2 < minLen) {
+                minLen = r - l + 2; // Because we over shrink the start by 1
+                minStart = l - 1; // Because we over shrink the start by 1
             }
         }
 
