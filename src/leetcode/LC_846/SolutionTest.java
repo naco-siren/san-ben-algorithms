@@ -42,4 +42,10 @@ public class SolutionTest {
         Solution solution = new Solution();
         assertEquals(true, solution.isNStraightHand(new int[]{5, 1}, 1));
     }
+
+    @Test
+    public void isNStraightHand_7() {
+        Solution solution = new Solution();
+        assertEquals(true, solution.isNStraightHand(new int[]{2, 4, 6}, 3));
+    }
 }
