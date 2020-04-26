@@ -9,29 +9,10 @@ import java.util.PriorityQueue;
 /**
  * Created by naco_siren on 9/18/17.
  */
-public class Solution {
-    public static void main(String[] args) {
-        Interval i1 = new Interval(1, 2);
-        Interval i2 = new Interval(2, 3);
-        Interval i3 = new Interval(2, 4);
-        Interval i4 = new Interval(3, 5);
-        Interval[] input = new Interval[]{i1, i2, i3, i4};
-
-        int output1 = minMeetingRooms1(input);
-        int output2 = minMeetingRooms2(input);
-
-
-        return;
-    }
-
-    public static int minMeetingRooms1(Interval[] intervals) {
-
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval i1, Interval i2) {
-                return i1.start - i2.start;
-            }
-        });
+class Solution {
+    static int minMeetingRooms1(Interval[] intervals) {
+        // Sort intervals in ascending order based on their start times
+        Arrays.sort(intervals, (Interval i1, Interval i2) -> i1.start - i2.start);
 
         int rooms = 0;
         PriorityQueue<Integer> ends = new PriorityQueue<>();
@@ -47,8 +28,7 @@ public class Solution {
         return rooms;
     }
 
-
-    public static int minMeetingRooms2(Interval[] intervals) {
+    static int minMeetingRooms2(Interval[] intervals) {
         if(intervals == null || intervals.length == 0) return 0;
 
         /* Sort the times into an array with labels */
