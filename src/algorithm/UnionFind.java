@@ -4,14 +4,14 @@ public class UnionFind {
     int[] parents;
     int count;
 
-    UnionFind(int n) {
+    public UnionFind(int n) {
         parents = new int[n];
         for (int i = 0; i < n; i++)
             parents[i] = i;
         count = n;
     }
 
-    int find(int x) {
+    public int find(int x) {
         while (parents[x] != x) {
             parents[x] = parents[parents[x]];
             x = parents[x];
@@ -19,7 +19,7 @@ public class UnionFind {
         return x;
     }
 
-    boolean union(int a, int b) {
+    public boolean union(int a, int b) {
         int rootA = find(a);
         int rootB = find(b);
 
