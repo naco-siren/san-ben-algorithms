@@ -8,7 +8,6 @@ import java.util.Stack;
  * 297. Serialize and Deserialize Binary Tree
  */
 public class Solution297 {
-    private static final char NULL_ESCAPE = '#';
     private static final char VALUE_ESCAPE = '@';
 
     // Encodes a tree to a single string.
@@ -20,7 +19,7 @@ public class Solution297 {
         while (!stack.empty()) {
             final TreeNode node = stack.pop();
             if (node == null) {
-                builder.append(NULL_ESCAPE);
+                builder.append(VALUE_ESCAPE);
             } else {
                 builder.append(node.val);
                 builder.append(VALUE_ESCAPE);
@@ -41,16 +40,18 @@ public class Solution297 {
     }
 
     private TreeNode deserializeNode(String data) {
+        // Find the first value escape sign
+        int i = offset;
+        while (i < data.length() && data.charAt(i) != VALUE_ESCAPE)
+            i++;
+
         // Check for null
-        if (data.charAt(offset) == NULL_ESCAPE) {
+        if (offset == i) {
             offset++;
             return null;
         }
 
-        // Parse non-null int value.
-        int i = offset;
-        while (i < data.length() && data.charAt(i) != VALUE_ESCAPE)
-            i++;
+        // Parse non-null value
         final int val = Integer.parseInt(data.substring(offset, i));
         offset = i + 1;
 

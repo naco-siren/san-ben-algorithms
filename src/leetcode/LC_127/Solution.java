@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * 127. Word Ladder
@@ -28,9 +29,9 @@ public class Solution {
         HashSet<String> dict = new HashSet<>(wordList);
 
         HashSet<String> used = new HashSet<>();
-        used.add(beginWord);
+        Queue<Pair<String, Integer>> bfsQ = new LinkedList<>();
 
-        LinkedList<Pair<String, Integer>> bfsQ = new LinkedList<>();
+        used.add(beginWord);
         bfsQ.offer(Pair.of(beginWord, 1));
 
         while (!bfsQ.isEmpty()) {
@@ -41,26 +42,27 @@ public class Solution {
             }
 
             // Perform BFS
-            List<String> nextWords = bfs(cur.getKey(), dict);
-            for (String nextWord : nextWords) {
-                if (used.contains(nextWord))
+            List<String> candidates = enumerateCandidates(cur.getKey(), dict);
+            for (String candidate : candidates) {
+                if (used.contains(candidate))
                     continue;
 
                 // Add to Queue and mark as used
-                bfsQ.offer(Pair.of(nextWord, cur.getValue() + 1));
-                used.add(nextWord);
+                used.add(candidate);
+                bfsQ.offer(Pair.of(candidate, cur.getValue() + 1));
             }
         }
         return 0;
     }
 
-    private List<String> bfs(final String curWord, final HashSet<String> dict) {
-        LinkedList<String> result = new LinkedList<>();
+    private List<String> enumerateCandidates(final String curWord, final HashSet<String> dict) {
+        LinkedList<String> candidates = new LinkedList<>();
+
         StringBuilder builder = new StringBuilder(curWord);
         for (int i = 0; i < curWord.length(); i++) {
             char ch = curWord.charAt(i);
             for (int j = 0; j < 26; j++) {
-                // Skip current char
+                // Skip the same char
                 if ('a' + j == ch)
                     continue;
 
@@ -68,11 +70,11 @@ public class Solution {
                 builder.setCharAt(i, (char) ('a' + j));
                 final String cand = builder.toString();
                 if (dict.contains(cand))
-                    result.add(cand);
+                    candidates.add(cand);
             }
             // Backtrack
             builder.setCharAt(i, ch);
         }
-        return result;
+        return candidates;
     }
 }
