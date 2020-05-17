@@ -7,10 +7,10 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Created by naco_siren on 9/18/17.
+ * 253. Meeting Rooms II
  */
-class Solution {
-    static int minMeetingRooms1(Interval[] intervals) {
+class Solution253 {
+    int minMeetingRooms1(Interval[] intervals) {
         // Sort intervals in ascending order based on their start times
         Arrays.sort(intervals, (Interval i1, Interval i2) -> i1.start - i2.start);
 
@@ -28,7 +28,7 @@ class Solution {
         return rooms;
     }
 
-    static int minMeetingRooms2(Interval[] intervals) {
+    int minMeetingRooms2(Interval[] intervals) {
         if(intervals == null || intervals.length == 0) return 0;
 
         /* Sort the times into an array with labels */
@@ -70,5 +70,4 @@ class Solution {
 
         return maxRooms;
     }
-
 }

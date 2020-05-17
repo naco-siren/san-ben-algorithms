@@ -3,11 +3,9 @@ package leetcode.LC_253;
 import base.Interval;
 import org.junit.Test;
 
-import static leetcode.LC_253.Solution.minMeetingRooms1;
-import static leetcode.LC_253.Solution.minMeetingRooms2;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SolutionTest {
+public class Solution253Test {
 
     @Test
     public void minMeetingRooms1_0() {
@@ -17,7 +15,7 @@ public class SolutionTest {
         Interval i4 = new Interval(3, 5);
         Interval[] input = new Interval[]{i1, i2, i3, i4};
 
-        assertEquals(2, minMeetingRooms1(input));
-        assertEquals(2, minMeetingRooms2(input));
+        assertEquals(2, new Solution253().minMeetingRooms1(input));
+        assertEquals(2, new Solution253().minMeetingRooms2(input));
     }
 }

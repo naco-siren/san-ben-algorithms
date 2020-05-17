@@ -5,67 +5,46 @@ import base.Interval;
 import java.util.*;
 
 /**
- * Created by naco_siren on 10/1/17.
+ * Given a list of intervals, find vacant intervals between them
  */
-public class FollowUp {
-    public static void main(String[] args) {
-        Interval[] input = new Interval[]{
-                new Interval(1, 3),
-                new Interval(2, 3),
-                new Interval(2, 5),
-                new Interval(3, 6),
-                new Interval(6, 8),
-                new Interval(9, 10),
-//                new Interval(12, 13)
-        };
+class Solution253FollowUp {
+    List<Interval> findVacancies(Interval[] intervals) {
+        LinkedList<Interval> vacantIntervals = new LinkedList<>();
+        if (intervals == null || intervals.length == 0)
+            return vacantIntervals;
 
-
-//        List<Interval> r1 = findVacancies(input); // [(8, 9), (10, 12)] !
-        List<Interval> r2 = findVacancies(input, 4); // [(1, 2), (3, 10)] !
-        List<Interval> r3 = findVacancies(input, 5); // [(1, 2), (5, 10)] !
-
-
-
-        return;
-    }
-
-    public static List<Interval> findVacancies(Interval[] intervals) {
+        // Sort intervals in ascending order of their start times
         int count = intervals.length;
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval i1, Interval i2) {
-                if (i1.start != i2.start)
-                    return i1.start - i2.start;
-                else
-                    return i1.end - i2.end;
-            }
+        Arrays.sort(intervals, (i1, i2) -> {
+            if (i1.start != i2.start)
+                return i1.start - i2.start;
+            else
+                return i1.end - i2.end;
         });
 
+        // Maintain a list of busy intervals to keep track of the earliest available time
         LinkedList<Interval> busyIntervals = new LinkedList<>();
-        LinkedList<Interval> vacantIntervals = new LinkedList<>();
-
         for (int i = 0; i < count; i++) {
-            Interval cur = intervals[i];
+            final Interval interval = intervals[i];
+
             if (busyIntervals.isEmpty()) {
-                busyIntervals.addLast(cur);
+                busyIntervals.addLast(interval);
+                continue;
+            }
 
+            final Interval latestBusy = busyIntervals.getLast();
+            if (interval.start > latestBusy.end) {
+                vacantIntervals.addLast(new Interval(latestBusy.end, interval.start));
+                busyIntervals.addLast(interval);
             } else {
-                Interval old = busyIntervals.getLast();
-
-                if (cur.start > old.end) {
-                    vacantIntervals.addLast(new Interval(old.end, cur.start));
-                    busyIntervals.addLast(cur);
-                } else {
-                    old.end = Math.max(old.end, cur.end);
-                }
+                latestBusy.end = Math.max(latestBusy.end, interval.end);
             }
         }
 
         return vacantIntervals;
     }
 
-
-    public static List<Interval> findVacancies(Interval[] intervals, int k) {
+    public List<Interval> findVacancies(Interval[] intervals, int k) {
         int count = intervals.length;
 
         /* Convert intervals into sorted timestamps */
@@ -74,19 +53,16 @@ public class FollowUp {
             points.add(new Point(interval.start, true));
             points.add(new Point(interval.end, false));
         }
-        Collections.sort(points, new Comparator<Point>() {
-            @Override
-            public int compare(Point p1, Point p2) {
-                if (p1.val != p2.val)
-                    return p1.val - p2.val;
-                else {
-                    if (p1.isStart && !p2.isStart)
-                        return 1;
-                    else if (!p1.isStart && p2.isStart)
-                        return -1;
-                    else
-                        return 0;
-                }
+        points.sort((p1, p2) -> {
+            if (p1.val != p2.val)
+                return p1.val - p2.val;
+            else {
+                if (p1.isStart && !p2.isStart)
+                    return 1;
+                else if (!p1.isStart && p2.isStart)
+                    return -1;
+                else
+                    return 0;
             }
         });
 
@@ -142,19 +118,20 @@ public class FollowUp {
 
         return results;
     }
+
+    static class Point {
+        int val;
+        boolean isStart;
+
+        public Point(int val, boolean isStart) {
+            this.val = val;
+            this.isStart = isStart;
+        }
+
+        @Override
+        public String toString() {
+            return "" + val + ", " + (isStart ? "s" : "e");
+        }
+    }
 }
 
-class Point {
-    int val;
-    boolean isStart;
-
-    public Point(int val, boolean isStart) {
-        this.val = val;
-        this.isStart = isStart;
-    }
-
-    @Override
-    public String toString() {
-        return "" + val + ", " + (isStart ? "s" : "e");
-    }
-}
