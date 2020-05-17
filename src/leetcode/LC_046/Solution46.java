@@ -5,25 +5,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by naco_siren on 7/9/17.
+ * 46. Permutations
+ *
+ * Input: [1,2,3]
+ * Output:
+ * [
+ *   [1,2,3],
+ *   [1,3,2],
+ *   [2,1,3],
+ *   [2,3,1],
+ *   [3,1,2],
+ *   [3,2,1]
+ * ]
  */
-public class Solution {
-    public static void main(String[] args) {
-
-        permute(new int[]{5, 1, 2, 3, 4});
-
-        return;
-    }
-
-    public static List<List<Integer>> permute(int[] num) {
-        LinkedList<List<Integer>> res = new LinkedList<List<Integer>>();
-        res.add(new ArrayList<Integer>());
+class Solution46 {
+    List<List<Integer>> permute(int[] num) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        res.add(new ArrayList<>());
         for (int n : num) {
             int size = res.size();
             for (; size > 0; size--) {
                 List<Integer> r = res.pollFirst();
                 for (int i = 0; i <= r.size(); i++) {
-                    List<Integer> t = new ArrayList<Integer>(r);
+                    List<Integer> t = new ArrayList<>(r);
                     t.add(i, n);
                     res.add(t);
                 }
