@@ -5,20 +5,23 @@ import java.util.Stack;
 /**
  * 200. Number of Islands
  */
-class Solution {
-    public static int numIslands(char[][] grid) {
+class Solution200 {
+    int numIslands(char[][] grid) {
         // Validate input
         if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0)
             return 0;
         final int R = grid.length, C = grid[0].length;
 
-        // Flooding algorithm
+        // Perform flood spreading
         int islandCount = 0;
         Stack<Point> stack = new Stack<>();
         for (int r = 0; r < R; r++) {
             for (int c = 0; c < C; c++) {
                 if (grid[r][c] != '1')
                     continue;
+
+                // Assign each island a distinct ID,
+                // which starts from `2` just to avoid being confused with reserved `0` and `1` values
                 final int islandIdx = islandCount + 2;
 
                 // Push current coordinate into stack

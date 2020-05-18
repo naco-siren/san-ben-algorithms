@@ -2,14 +2,14 @@ package leetcode.LC_200;
 
 import org.junit.Test;
 
-import static leetcode.LC_200.Solution.numIslands;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SolutionTest {
+
+public class Solution200Test {
 
     @Test
     public void numIslands_1() {
-        assertEquals(1, numIslands(new char[][]{
+        assertEquals(1, new Solution200().numIslands(new char[][]{
             new char[]{'1','1','1','1','0'},
             new char[]{'1','1','0','1','0'},
             new char[]{'1','1','0','0','0'},
@@ -19,7 +19,7 @@ public class SolutionTest {
 
     @Test
     public void numIslands_2() {
-        assertEquals(3, numIslands(new char[][]{
+        assertEquals(3, new Solution200().numIslands(new char[][]{
             new char[]{'1','1','0','1','0'},
             new char[]{'1','1','0','1','0'},
             new char[]{'1','1','0','0','0'},
@@ -29,7 +29,7 @@ public class SolutionTest {
 
     @Test
     public void numIslands_3() {
-        assertEquals(3, numIslands(new char[][]{
+        assertEquals(3, new Solution200().numIslands(new char[][]{
             new char[]{'1','1','1','1','0'},
             new char[]{'1','1','0','1','0'},
             new char[]{'1','1','0','0','1'},
