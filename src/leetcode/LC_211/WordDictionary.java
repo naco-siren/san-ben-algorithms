@@ -3,7 +3,7 @@ package leetcode.LC_211;
 import java.util.Stack;
 
 /**
- * Created by naco_siren on 9/26/17.
+ * 211. Add and Search Word - Data structure design
  */
 public class WordDictionary {
 
