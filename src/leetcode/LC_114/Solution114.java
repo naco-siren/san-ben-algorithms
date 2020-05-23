@@ -6,18 +6,67 @@ import base.TreeNode;
  * 114. Flatten Binary Tree to Linked List
  */
 class Solution114 {
+    /**
+     * Step 1.
+     *       (1)        tail:       1
+     *      /  \        rightMost:  4
+     *     2    5.
+     *   / \     \
+     *  3   <4>   6
+     *
+     * Step 2.
+     *       (1)        tail:       1
+     *      /  \        rightMost:  4
+     *     2    2
+     *   / \   / \
+     *  3   4 3  <4>
+     *             \
+     *              5.
+     *               \
+     *                6
+     *
+     * Step 3.
+     *       (1)        tail:       1
+     *         \        rightMost:  4
+     *          2
+     *         / \
+     *        3  <4>
+     *             \
+     *              5.
+     *               \
+     *                6
+     * Step 4.
+     *        1         tail:       2
+     *         \
+     *         (2)
+     *         / \
+     *        3   4
+     *             \
+     *              5
+     *               \
+     *                6
+     *
+     *
+     */
     void flatten(TreeNode root) {
-        while (root != null) {
-            if (root.left != null) {
-                TreeNode mostr = root.left;
-                while (mostr.right != null)
-                    mostr = mostr.right;
-                mostr.right = root.right;
-                root.right = root.left;
-                root.left = null;
+        TreeNode tail = root;
+        while (tail != null) {
+            if (tail.left != null) {
+                // 1. Find the right-most node of tail's left
+                TreeNode rightMost = tail.left;
+                while (rightMost.right != null)
+                    rightMost = rightMost.right;
+
+                // 2. Insert [tail.left -> ... -> rightMost] in between `tail` and `tail.right`
+                rightMost.right = tail.right;
+                tail.right = tail.left;
+
+                // 3. Cut off from tail's left
+                tail.left = null;
             }
 
-            root = root.right;
+            // 4. Move `tail` one step down on the right
+            tail = tail.right;
         }
     }
 
