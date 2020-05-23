@@ -8,10 +8,9 @@ package leetcode.LC_076;
  * If there is no such window in S that covers all characters in T, return the empty string "".
  * If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
  *
- * Created by naco_siren on 7/15/17.
  */
-public class Solution {
-    public static String minWindow(String s, String t) {
+class Solution76 {
+    String minWindow(String s, String t) {
         if (s == null || s.length() == 0 || t == null || t.length() == 0) return "";
         int m = s.length(), n = t.length();
 
@@ -29,21 +28,21 @@ public class Solution {
                 remains--;
 
             // Continue expanding the window if total demand not met
-            if (remains > 0) continue;
+            if (remains > 0)
+                continue;
 
             // If total demand is met, shrink the window
             while (remains == 0) {
-                if (++hist[s.charAt(l)] > 0)
+                if (++hist[s.charAt(l++)] > 0)
                     remains++;
-                l++;
             }
 
-            /* By now, the count should be 1 */
+            /* By now, `remains` should be 1 */
 
             // Update minimum length record
             if (r - l + 2 < minLen) {
-                minLen = r - l + 2; // Because we over shrink the start by 1
-                minStart = l - 1; // Because we over shrink the start by 1
+                minLen = r - l + 2;     // Because we over shrink the start by 1
+                minStart = l - 1;       // Because we over shrink the start by 1
             }
         }
 
