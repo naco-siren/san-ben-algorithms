@@ -19,9 +19,12 @@ class Solution199 {
         if (node == null)
             return;
 
-        if (result.size() > depth) {
+        // NOTE the condition here
+        if (depth < result.size()) {
+            // Index within boundary
             result.set(depth, node.val);
         } else {
+            // Index out of boundary
             result.add(node.val);
         }
         recur(node.left, depth + 1, result);
