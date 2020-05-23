@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Solution269 {
     String alienOrder(String[] words) {
-        // Adding all characters into a map
+        // Prepare a map of each character to its `Node`
         Map<Character, Node> nodes = new HashMap<>();
         for (String word : words) {
             for (int i = 0; i < word.length(); i++) {
@@ -23,24 +23,25 @@ public class Solution269 {
         // Derive pairs in order by comparing word after word
         for (int i = 1; i < words.length; i++) {
             char[] pair = deriveCharPair(words[i - 1], words[i]);
+
+            // If conflicts exist
             if (pair == null)
                 return "";
 
+            // If no useful information is derived
             if (pair.length == 0)
                 continue;
 
-            Node first = nodes.getOrDefault(pair[0], new Node(pair[0]));
-            Node second = nodes.getOrDefault(pair[1], new Node(pair[1]));
-
+            // Update first node's children and second node's in-degree
+            Node first = nodes.get(pair[0]), second = nodes.get(pair[1]);
             if (first.addChild(second))
                 indegrees.put(second, indegrees.getOrDefault(second, 0) + 1);
-
-            nodes.put(pair[0], first);
-            nodes.put(pair[1], second);
         }
 
+        // Extract a list of nodes sorted in Topological order
         List<Node> order = extractTopologicalOrder(nodes, indegrees);
 
+        // Format to output
         StringBuilder builder = new StringBuilder();
         for (Node node : order)
             builder.append(node.value);
@@ -64,15 +65,15 @@ public class Solution269 {
 
     /**
      * Extract topological order of the characters from indegress map
-     * @param nodes
-     * @param indegrees
-     * @return
      */
     List<Node> extractTopologicalOrder(Map<Character, Node> nodes, Map<Node, Integer> indegrees) {
         // Find all 0-degree nodes
         Queue<Node> queue = new LinkedList<>();
         for (Map.Entry<Character, Node> entry : nodes.entrySet()) {
             final Node node = entry.getValue();
+
+            // All nodes with non-zero in-degrees have been added to `indegrees` map,
+            // therefore whichever left out are the nodes with zero in-degree.
             if (!indegrees.containsKey(node))
                 queue.offer(node);
         }
@@ -95,7 +96,7 @@ public class Solution269 {
             }
         }
 
-        // All nodes' in-degrees must be distinct
+        // Return empty if cycles exist!
         if (order.size() != nodes.size())
             return new LinkedList<>();
         return order;
