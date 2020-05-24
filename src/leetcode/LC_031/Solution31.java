@@ -4,7 +4,7 @@ package leetcode.LC_031;
 /**
  * 31. Next Permutation
  */
-class Solution31 {
+public class Solution31 {
 
     void nextPermutation(int[] nums) {
         // Find the longest descending subarray starting from the right end.
