@@ -7,6 +7,20 @@ import static org.junit.Assert.*;
 public class Solution34Test {
 
     @Test
+    public void searchRange_1__1() {
+        assertArrayEquals(
+                new int[]{0, 0},
+                new Solution34().searchRange(new int[]{1}, 1));
+    }
+
+    @Test
+    public void searchRange_2_2__2() {
+        assertArrayEquals(
+                new int[]{0, 1},
+                new Solution34().searchRange(new int[]{2, 2}, 2));
+    }
+
+    @Test
     public void searchRange_6_5_5__5() {
         assertArrayEquals(
                 new int[]{-1, -1},

@@ -17,17 +17,15 @@ class Solution34 {
         while (l < r) {
             final int mid = (l + r) / 2;
 
-            if (nums[mid] == target && (mid == 0 || nums[mid - 1] < target)) {
+            if (nums[mid] == target && (mid == 0 || nums[mid - 1] < target)) {  // Remember to always check for target and break/return
                 first = mid;
                 break;
             }
 
-            if (nums[mid] < target) {
+            if (nums[mid] < target) {   // Focus on the condition that ALIGNS with your search direction (to the LEFT)
                 l = mid + 1;
             } else {
-                // NOTE that we CAN do `r = mid` here,
-                // because mid is guaranteed to be smaller than `r`
-                r = mid;
+                r = mid - 1;
             }
         }
         if (first == -1)
@@ -43,17 +41,15 @@ class Solution34 {
         while (l < r) {
             final int mid = (l + r) / 2;
 
-            if (nums[mid] == target && (mid == nums.length - 1 || nums[mid + 1] > target)) {
+            if (nums[mid] == target && (mid == nums.length - 1 || nums[mid + 1] > target)) {    // Ditto
                 last = mid;
                 break;
             }
 
-            if (nums[mid] <= target) {
-                // NOTE that we CANNOT do `l = mid` here,
-                // because mid is not guaranteed to be bigger than `l`
-                l = mid + 1;
-            } else {
+            if (nums[mid] > target) {   // Focus on the condition that ALIGNS with your search direction (to the RIGHT)
                 r = mid - 1;
+            } else {
+                l = mid + 1;
             }
         }
         if (last == -1)
