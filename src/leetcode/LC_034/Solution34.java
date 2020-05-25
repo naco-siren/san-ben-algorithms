@@ -13,47 +13,50 @@ class Solution34 {
 
         // Find first position of target element
         int first = -1;
-        int l = 0, r = nums.length - 1;
-        while (l < r) {
-            final int mid = (l + r) / 2;
+        int lo = 0, hi = nums.length - 1;
+        while (lo < hi) {
+            final int mid = (lo + hi) / 2;
 
             if (nums[mid] == target && (mid == 0 || nums[mid - 1] < target)) {  // Remember to always check for target and break/return
                 first = mid;
                 break;
             }
 
-            if (nums[mid] < target) {   // Focus on the condition that ALIGNS with your search direction (to the LEFT)
-                l = mid + 1;
+            if (nums[mid] < target) {   // If `nums[mid] == target`, then you wanna decrement `hi` by one, which is the same as `nums[mid] > target`
+                lo = mid + 1;           // Therefore, `<` is on one side, while `>=` is on another side.
             } else {
-                r = mid - 1;
+                hi = mid - 1;
             }
         }
         if (first == -1)
-            first = nums[l] == target ? l : -1;
+            first = nums[lo] == target ? lo : -1;
 
         // Early return if first not found
         if (first == -1)
             return new int[]{-1, -1};
 
+
+
         // Find last position of target element
         int last = -1;
-        l = first; r = nums.length - 1;
-        while (l < r) {
-            final int mid = (l + r) / 2;
+        lo = first; hi = nums.length - 1;
+        while (lo < hi) {
+            final int mid = (lo + hi) / 2;
 
             if (nums[mid] == target && (mid == nums.length - 1 || nums[mid + 1] > target)) {    // Ditto
                 last = mid;
                 break;
             }
 
-            if (nums[mid] > target) {   // Focus on the condition that ALIGNS with your search direction (to the RIGHT)
-                r = mid - 1;
+            if (nums[mid] > target) {   // If `nums[mid] == target`, then you wanna increment `lo` by one, which is the same as `nums[mid] < target`
+                hi = mid - 1;           // Therefore, `>` is on one side, while `<=` is on another side.
             } else {
-                l = mid + 1;
+                lo = mid + 1;
             }
         }
         if (last == -1)
-            last = nums[r] == target ? r : -1;
+            last = nums[hi] == target ? hi : -1;
+//          last = nums[lo] == target ? hi : -1;    // WILL ALSO WORK! `lo` and `hi` are equal on exiting this loop.
 
         return new int[]{first, last};
     }
