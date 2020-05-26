@@ -15,12 +15,11 @@ class Solution139 {
         isBreak[0] = true;
 
         // Perform dynamic programming
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 1; i <= s.length(); i++) {     // `i` is not index of `s`, but index of `isBreak` array instead.
             for (String word : dict) {
-                if (word.length() <= i + 1
-                        && isBreak[i - word.length() + 1]
-                        && s.substring(i - word.length() + 1, i + 1).equals(word)) {
-                    isBreak[i + 1] = true;
+                if (word.length() <= i && isBreak[i - word.length()]
+                        && s.substring(i - word.length(), i).equals(word)) {
+                    isBreak[i] = true;
                     break;
                 }
             }
