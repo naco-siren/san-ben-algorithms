@@ -2,25 +2,36 @@ package leetcode.LC_043;
 
 /**
  * 43. Multiply Strings
- *
- * Created by naco_siren on 8/17/17.
  */
-public class Solution {
-    public static String multiply(String num1, String num2) {
+class Solution43 {
+    /*
+     *
+     *
+     *
+     * Little-Endian approach
+     *
+     *
+     *
+     */
+    String multiply(String num1, String num2) {
+        final int len1 = num1.length(), len2 = num2.length();
+        final char[] chars1 = num1.toCharArray(), chars2 = num2.toCharArray();
+
         // Early return on corner case
         if ("0".equals(num1) || "0".equals(num2))
             return "0";
 
-        // Perform multiplication by the intuitive way
-        final int len1 = num1.length(), len2 = num2.length();
-        final char[] chars1 = num1.toCharArray(), chars2 = num2.toCharArray();
+        // Perform multiplication in Little-Endian order
         final char[] result = new char[len1 + len2];
         for (int i = 0; i < len1; i++) {
             final int op1 = chars1[len1 - 1 - i] - '0';
+
             for (int j = 0; j < len2; j++) {
                 final int op2 = chars2[len2 - 1 - j] - '0';
+
                 final int product = op1 * op2;
                 result[i + j] += product;
+
                 if (result[i + j] >= 10) {
                     result[i + j + 1] += result[i + j] / 10;
                     result[i + j] %= 10;
@@ -30,18 +41,25 @@ public class Solution {
 
         // Find the first non-zero number from the end of the result array
         int start = len1 + len2 - 1;
-        while (start < len1 + len2 && result[start] == 0)
+        while (start >= 0 && result[start] == 0)
             start--;
 
         // Format result chars into String
         StringBuilder builder = new StringBuilder();
-        for (int i = start; i >= 0; i--) {
+        for (int i = start; i >= 0; i--)
             builder.append((char) ('0' + result[i]));
-        }
         return builder.toString();
     }
 
-    public static String multiply2(String num1, String num2) {
+
+    /*
+     *
+     *
+     * Big-Endian approach
+     *
+     *
+     */
+    String multiply2(String num1, String num2) {
         // Early return on corner case
         if ("0".equals(num1) || "0".equals(num2))
             return "0";
