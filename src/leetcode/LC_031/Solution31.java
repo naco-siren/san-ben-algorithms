@@ -5,8 +5,36 @@ package leetcode.LC_031;
  * 31. Next Permutation
  */
 public class Solution31 {
-
+    /*
+     *
+     * Approach aligning with "47. Permutations II".
+     *
+     */
     void nextPermutation(int[] nums) {
+        int s, t;
+
+        // Find the longest descending subarray starting from the right end.
+        for (s = nums.length - 2; s >= 0 && nums[s] >= nums[s + 1]; s--);
+
+        // Early return if the whole array is descending
+        if (s == -1) {
+            reverse(nums, 0);
+            return;
+        }
+
+        // Find the smallest number in this subarray yet larger than the one right before the subarray.
+        for (t = s + 1; t < nums.length && nums[t] > nums[s]; t++);
+        t--;
+
+        // Swap these two numbers
+        int temp = nums[s];
+        nums[s] = nums[t];
+        nums[t] = temp;
+
+        reverse(nums, s + 1);
+    }
+
+    void nextPermutation2(int[] nums) {
         // Find the longest descending subarray starting from the right end.
         // e.g. [1,2,5,4,3]  ->  s = 2
         //
