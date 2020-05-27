@@ -37,7 +37,15 @@ class Solution76 {
                     remains++;
             }
 
-            /* By now, `remains` should be 1 */
+            /*
+             * By now, `remains` should be 1.
+             *
+             * And the reason that we don't adjust `l` and `remains` by `-1` here, is because:
+             *
+             *      After `remains` becomes `0`, next iteration's expansion on the right will put `remains` below `0`,
+             *      which will not fall into our `while(remains == 0)` trap!!!
+             *
+             */
 
             // Update minimum length record
             if (r - l + 2 < minLen) {
