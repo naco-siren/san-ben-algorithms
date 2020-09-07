@@ -48,4 +48,12 @@ public class Solution140Test {
                 Arrays.asList("apple", "pen", "applepen", "pine", "pineapple"));
         assertEquals(expected, new HashSet<>(r0));
     }
+
+    @Test
+    public void wordBreak_3() {
+        List<String> r0 = new Solution140().wordBreak(
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"));
+        assertTrue(r0.isEmpty());
+    }
 }

@@ -8,24 +8,41 @@ import java.util.*;
 public class Solution140 {
 
     public List<String> wordBreak(String s, List<String> wordDict) {
+        // Early return on validation failure
+        if (!validate(s, wordDict))
+            return new LinkedList<>();
+
         // Generate a HashSet of words
         final TrieNode trie = generateTrie(wordDict);
 
-        // DFS
+        // Perform DFS
         List<List<String>> results = new LinkedList<>();
         dfs(trie, s, new LinkedList<>(), results);
 
         // Format the results for output
         List<String> output = new LinkedList<>();
-        for (List<String> result : results) {
-            StringBuilder builder = new StringBuilder(result.get(0));
-            for (int i = 1; i < result.size(); i++) {
-                builder.append(" ");
-                builder.append(result.get(i));
-            }
-            output.add(builder.toString());
-        }
+        for (List<String> result : results)
+            output.add(String.join(" ", result));
         return output;
+    }
+
+    private boolean validate(String s, List<String> wordDict) {
+        int[] charsNeeded = new int[26];
+        Arrays.fill(charsNeeded, -1);
+
+        for (char ch : s.toCharArray())
+            charsNeeded[ch - 'a'] = 1;
+
+        for (String word : wordDict) {
+            for (char ch : word.toCharArray())
+                charsNeeded[ch - 'a'] = 0;
+        }
+
+        for (int charNeeded : charsNeeded) {
+            if (charNeeded == 1)
+                return false;
+        }
+        return true;
     }
 
     private TrieNode generateTrie(List<String> words) {
@@ -62,17 +79,19 @@ public class Solution140 {
         TrieNode iter = trieRoot;
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
-            if (iter.children[ch - 'a'] == null)
+            TrieNode child = iter.children[ch - 'a'];
+            if (child == null)
                 return;
 
-            iter = iter.children[ch - 'a'];
-            if (iter.isWord) {
+            if (child.isWord) {
                 prefix.add(s.substring(0, i + 1));  // Add current candidate into prefix,
 
                 dfs(trieRoot, s.substring(i + 1), prefix, results);     //... WHICH ALLOWS FOR SUBSTRING
 
                 prefix.removeLast();                // backtrack, remove current candidate
             }
+
+            iter = child;
         }
     }
 
