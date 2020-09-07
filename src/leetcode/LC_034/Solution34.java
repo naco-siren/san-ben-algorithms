@@ -4,6 +4,9 @@ package leetcode.LC_034;
  * 34. Find First and Last Position of Element in Sorted Array
  */
 class Solution34 {
+    /**
+     * Approach 1: My solution
+     */
     public int[] searchRange(int[] nums, int target) {
         // Guard corner cases
         if (nums == null || nums.length == 0)
@@ -26,6 +29,7 @@ class Solution34 {
                 lo = mid + 1;           // Therefore, `<` is on one side, while `>=` is on another side.
             } else {
                 hi = mid - 1;
+                // hi = mid             // also works, but let's keep `hi = mid - 1` to be symmetrical with the second half
             }
         }
         if (first == -1)
@@ -60,4 +64,43 @@ class Solution34 {
 
         return new int[]{first, last};
     }
+
+//
+//    /**
+//     * Approach 2: Official solution
+//     */
+//    public int[] searchRange2(int[] nums, int target) {
+//        int[] targetRange = {-1, -1};
+//
+//        int leftIdx = extremeInsertionIndex(nums, target, true);
+//
+//        // assert that `leftIdx` is within the array bounds and that `target`
+//        // is actually in `nums`.
+//        if (leftIdx == nums.length || nums[leftIdx] != target) {
+//            return targetRange;
+//        }
+//
+//        targetRange[0] = leftIdx;
+//        targetRange[1] = extremeInsertionIndex(nums, target, false) - 1;
+//
+//        return targetRange;
+//    }
+//
+//    // returns leftmost (or rightmost) index at which `target` should be
+//    // inserted in sorted array `nums` via binary search.
+//    private int extremeInsertionIndex(int[] nums, int target, boolean leftMost) {
+//        int lo = 0;
+//        int hi = nums.length;   // ?
+//
+//        while (lo < hi) {
+//            int mid = (lo + hi) / 2;
+//            if (nums[mid] > target || (leftMost && target == nums[mid])) {
+//                hi = mid;
+//            } else {
+//                lo = mid + 1;
+//            }
+//        }
+//
+//        return lo;
+//    }
 }
