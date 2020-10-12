@@ -4,22 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Solution {
-    public static void main(String[] args) {
-        Solution solution = new Solution(4);
-        List<List<String>> r1 = solution.solve();
-        // [".Q..",  // Solution 1
-        //  "...Q",
-        //  "Q...",
-        //  "..Q."],
-        //
-        // ["..Q.",  // Solution 2
-        //  "Q...",
-        //  "...Q",
-        //  ".Q.."]
-    }
+public class Solution051_2 {
 
-    Solution(final int n) {
+    private final int N;
+
+    Solution051_2(final int n) {
         this.N = n;
     }
 
@@ -28,8 +17,6 @@ public class Solution {
         dfs(0, new ArrayList<>(), results);
         return output(results);
     }
-
-    private int N;
 
     private void dfs(final int r, ArrayList<Integer> prefix, LinkedList<ArrayList<Integer>> results) {
         // Mark the slots attacked by Queens in the prefix
