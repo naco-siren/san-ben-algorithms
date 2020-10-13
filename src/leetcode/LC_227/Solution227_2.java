@@ -1,22 +1,12 @@
 package leetcode.LC_227;
 
-public class Solution2 {
-    public static void main(String[] args) {
-        Solution2 solution1 = new Solution2("3+2*2");
-        int r1 = solution1.calculate();       // 7
+public class Solution227_2 {
 
-        Solution2 solution2 = new Solution2(" 3/2 ");
-        int r2 = solution2.calculate();       // 1
-
-        Solution2 solution3 = new Solution2(" 3+5 / 2 ");
-        int r3 = solution3.calculate();   // 5
-    }
-
-    public Solution2(String s) {
+    public Solution227_2(String s) {
         _str = "+" + s + "+";
     }
 
-    private String _str;
+    private final String _str;
     private int _cursor;
 
     public int calculate() {

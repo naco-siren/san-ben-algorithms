@@ -1,12 +1,9 @@
 package leetcode.LC_227;
 
-public class Solution {
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        int r1 = solution.calculate("3+2*2");       // 7
-        int r2 = solution.calculate(" 3/2 ");       // 1
-        int r3 = solution.calculate(" 3+5 / 2 ");   // 5
-    }
+/**
+ * 227. Basic Calculator II
+ */
+public class Solution227 {
 
     public int calculate(String s) {
         s = "+" + s + "+";
@@ -24,6 +21,7 @@ public class Solution {
             op = s.charAt(i);
 
             if (op == '+' || op == '-') {
+                // Checkout pervious term's value
                 total += term;
 
                 // Skip blank chars
@@ -39,7 +37,6 @@ public class Solution {
                 term = op == '+' ? term : -term;
 
             } else {
-
                 // Skip blank chars
                 i++;
                 while (i < s.length() && Character.isSpaceChar(s.charAt(i)))
