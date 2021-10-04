@@ -1,19 +1,15 @@
 package leetcode.LC_087;
 
 /**
+ * 87. Scramble String
+ *
  * Created by naco_siren on 7/23/17.
  */
-public class Solution {
-    public static void main(String[] args) {
-        boolean r1 = isScramble("great", "rgate");
-
-        return;
-    }
-
+public class Solution087 {
     /**
      * A dynamic programming solution
      */
-    public static boolean isScramble(String s1, String s2) {
+    public boolean isScramble(String s1, String s2) {
         int L = s1.length();
         if (L == 0) return true;
         if (L == 1) return s1.charAt(0) == s2.charAt(0);
@@ -44,10 +40,12 @@ public class Solution {
                        consider marginal effect at each step */
                     for (int k = 1; k < l; k++) {
                         /* not swap */
-                        if (dp[i][j][k-1] && dp[i+k][j+k][l-k-1]) dp[i][j][l-1] = true;
+                        if (dp[i][j][k-1] && dp[i+k][j+k][l-k-1])
+                            dp[i][j][l-1] = true;
 
                         /* swap */
-                        if (dp[i][j+l-k][k-1] && dp[i+k][j][l-k-1]) dp[i][j][l-1] = true;
+                        if (dp[i][j+l-k][k-1] && dp[i+k][j][l-k-1])
+                            dp[i][j][l-1] = true;
                     }
                 }
             }
@@ -60,7 +58,7 @@ public class Solution {
     /**
      * A recursive solution
      */
-    public static boolean isScramble2(String s1, String s2) {
+    public boolean isScramble2(String s1, String s2) {
         if (s1.equals(s2)) return true;
         int len = s1.length();
 
