@@ -1,7 +1,7 @@
 package companies.uber.game_of_go;
 
-import javafx.util.Pair;
 
+import base.Pair;
 import java.util.IllegalFormatException;
 import java.util.LinkedList;
 import java.util.Queue;

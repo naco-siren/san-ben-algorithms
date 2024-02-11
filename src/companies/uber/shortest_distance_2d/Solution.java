@@ -1,7 +1,6 @@
 package companies.uber.shortest_distance_2d;
 
-import javafx.util.Pair;
-
+import base.Pair;
 import java.util.LinkedList;
 import java.util.Queue;
 
