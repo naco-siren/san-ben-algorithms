@@ -22,12 +22,21 @@ public class Solution1345Test {
         assertEquals(1, new Solution1345().minJumps(new int[]{7,6,9,6,9,6,9,7}));
     }
 
-    // TODO: FIX MEMORY EXCEEDS LIMIT!
     @Test
-    public void test_29() {
+    public void test_29_shorter() {
+        int[] input = new int[10];
+        Arrays.fill(input, 7);
+        input[0] = 111;
+        assertEquals(2, new Solution1345().minJumps(input));
+    }
+
+    // TODO: improve time complexity
+    @Test
+    public void test_29_full() {
         int[] input = new int[50000];
         Arrays.fill(input, 7);
         input[0] = 11;
-        assertEquals(1, new Solution1345().minJumps(input));
+        assertEquals(2, new Solution1345().minJumps(input));
     }
+
 }
