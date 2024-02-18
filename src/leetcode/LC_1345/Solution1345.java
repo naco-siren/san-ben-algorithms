@@ -17,76 +17,54 @@ public class Solution1345 {
             valToIdx.put(arr[i], indices);
         }
 
-        // BFS starting from the last element
-        int minJumps = N;
 
-        Queue<State> queue = new LinkedList<>();
+        // BFS starting from the first element
+        Queue<Integer> queue = new LinkedList<>();
         boolean[] requested = new boolean[N];
-        int[] dp = new int[N];
-        Arrays.fill(dp, N);
 
-        requested[N - 1] = true;
-        queue.offer(new State(N - 1, 0));
+        int jumps = 0;
+        requested[0] = true;
+        queue.offer(0);
 
         while (!queue.isEmpty()) {
-            final State current = queue.poll();
+            /*
+             * FOR BFS, DO NOT FORGET THAT QUEUE'S SIZE IS CHANGING AS YOU OFFER ITEMS FOR NEXT DEPTH!!!
+             */
+            for (int i = queue.size(); i > 0; i--) {
+                final int idx = queue.poll(), val = arr[idx];
 
-            // Already performing worse than our best result so far
-            if (current.jumps >= minJumps)
-                continue;
-            // Already performing worse than this current position
-            if (current.jumps >= dp[current.index])
-                continue;
+                // IF HIT, update minJumps
+                if (idx == N - 1)
+                    return jumps;
 
-            // Update dp
-            dp[current.index] = current.jumps;
-            final int value = arr[current.index];
+                // Queue next available jump targets
+                Set<Integer> equalIndices = valToIdx.get(val);
+                if (equalIndices != null) {
+                    for (Integer cand : equalIndices) {
+                        if (requested[cand])
+                            continue;
 
-            // IF HIT, update minJumps
-            if (current.index == 0) {
-                minJumps = current.jumps;
-                continue;
-            }
-
-            final int nextJumps = current.jumps + 1;
-
-            // Queue next available jump targets
-            Set<Integer> equalIndices = valToIdx.get(value);
-            if (equalIndices != null) {
-                for (Integer idx : equalIndices) {
-                    if (requested[idx])
-                        continue;
-
-                    // Only enqueue the candidate if it has potential
-                    if (dp[idx] > nextJumps) {
-                        requested[idx] = true;
-                        queue.offer(new State(idx, nextJumps));
+                        // Only enqueue the candidate if it has potential
+                        requested[cand] = true;
+                        queue.offer(cand);
                     }
+
+                    // Dispose the candidate for current value since they are all offered to this queue
+                    valToIdx.remove(val);
+                }
+
+                if (idx - 1 >= 0 && !requested[idx - 1]) {
+                    requested[idx - 1] = true;
+                    queue.offer(idx - 1);
+                }
+
+                if (idx + 1 < N && !requested[idx + 1]) {
+                    requested[idx + 1] = true;
+                    queue.offer(idx + 1);
                 }
             }
-
-            final int leftIdx = current.index - 1;
-            if (leftIdx >= 0 && !requested[leftIdx] && dp[leftIdx] > nextJumps) {
-                requested[leftIdx] = true;
-                queue.offer(new State(leftIdx, nextJumps));
-            }
-
-            final int rightIdx = current.index + 1;
-            if (rightIdx < N && !requested[rightIdx] && dp[rightIdx] > nextJumps) {
-                requested[rightIdx] = true;
-                queue.offer(new State(rightIdx, nextJumps));
-            }
+            jumps++;
         }
-        return minJumps;
-    }
-
-    private static class State {
-        int index;
-        int jumps;
-
-        private State(int index, int jumps) {
-            this.index = index;
-            this.jumps = jumps;
-        }
+        return jumps;
     }
 }
